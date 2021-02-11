@@ -1,5 +1,7 @@
 <template>
-  <div class="select-number">
+  <div class="select-number"
+    v-if="state === 'selectNumber'"
+  >
     <h2 class="select-number__title">Выбери цифру, для тренировки</h2>
     <ul class="select-number__list">
       <li class="select-number__item"
@@ -16,6 +18,10 @@ export default {
   name: 'SelectNumber',
   props: {
     numbers: Array,
+    state: {
+      type: String,
+      default: 'default',
+    },
   },
   methods: {
     getNumber(index) {

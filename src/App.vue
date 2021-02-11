@@ -4,11 +4,13 @@
       :count="count"
     />
     <SelectAction
-      :actions="actions"
+      @sendAction="getAction"
+      :state="state"
     />
     <SelectNumber
       :numbers="numbers"
       @getNumber="getFirstFactor"
+      :state="state"
     />
   </div>
 </template>
@@ -65,22 +67,15 @@ export default {
           selected: false,
         },
       ],
-      state: 'default',
-      actions: [
-        {
-          name: 'Умножение',
-          value: 'multiple',
-          selected: false,
-        },
-        {
-          name: 'Деление',
-          value: 'divide',
-          active: false,
-        },
-      ],
+      state: 'action',
+      action: null,
     };
   },
   methods: {
+    getAction(action) {
+      this.action = action;
+      this.state = 'selectNumber';
+    },
     getFirstFactor(index) {
       this.numbers.forEach((element) => {
         // eslint-disable-next-line no-param-reassign
@@ -88,6 +83,7 @@ export default {
       });
       this.numbers[index].selected = true;
       this.firstFactor = this.numbers[index].value;
+      this.state = 'expression';
     },
   },
 };
