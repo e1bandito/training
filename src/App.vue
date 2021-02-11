@@ -3,6 +3,9 @@
     <Counter
       :count="count"
     />
+    <SelectAction
+      :actions="actions"
+    />
     <SelectNumber
       :numbers="numbers"
     />
@@ -13,10 +16,12 @@
 
 import Counter from '@/components/Counter.vue';
 import SelectNumber from '@/components/SelectNumber.vue';
+import SelectAction from '@/components/SelectAction.vue';
 
 export default {
   name: 'App',
   components: {
+    SelectAction,
     SelectNumber,
     Counter,
   },
@@ -55,6 +60,19 @@ export default {
         {
           value: 9,
           selected: false,
+        },
+      ],
+      state: 'default',
+      actions: [
+        {
+          name: 'Умножение',
+          value: 'multiple',
+          selected: false,
+        },
+        {
+          name: 'Деление',
+          value: 'divide',
+          active: false,
         },
       ],
     };
