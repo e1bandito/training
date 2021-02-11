@@ -8,6 +8,7 @@
     />
     <SelectNumber
       :numbers="numbers"
+      @getNumber="getFirstFactor"
     />
   </div>
 </template>
@@ -27,6 +28,8 @@ export default {
   },
   data() {
     return {
+      firstFactor: null,
+      secondFactor: null,
       count: 0,
       numbers: [
         {
@@ -76,6 +79,16 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    getFirstFactor(index) {
+      this.numbers.forEach((element) => {
+        // eslint-disable-next-line no-param-reassign
+        element.selected = false;
+      });
+      this.numbers[index].selected = true;
+      this.firstFactor = this.numbers[index].value;
+    },
   },
 };
 </script>

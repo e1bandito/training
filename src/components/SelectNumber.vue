@@ -5,7 +5,8 @@
       <li class="select-number__item"
         v-for="(item, index) in numbers"
         :key="index"
-      >{{ item.value }}</li>
+        @click="getNumber(index)"
+      >{{ item.value }} - {{ index }}</li>
     </ul>
   </div>
 </template>
@@ -15,6 +16,11 @@ export default {
   name: 'SelectNumber',
   props: {
     numbers: Array,
+  },
+  methods: {
+    getNumber(index) {
+      this.$emit('getNumber', index);
+    },
   },
 };
 </script>
