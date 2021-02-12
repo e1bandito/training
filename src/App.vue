@@ -4,13 +4,13 @@
       :count="count"
     />
     <SelectAction
-      @sendAction="getAction"
       :state="state"
+      @sendAction="getAction"
     />
     <SelectNumber
       :numbers="numbers"
-      @getNumber="getExpression"
       :state="state"
+      @getNumber="getFirstFactor"
     />
     <Expression
       :firstFactor="firstFactor"
@@ -18,7 +18,16 @@
       :action="action"
       :state="state"
       :answerOptArr="answerOptArr"
-      @getAnswer="getAnswer"
+      @sendAnswer="sendAnswer"
+    />
+    <Result
+      :firstFactor="firstFactor"
+      :secondFactor="secondFactor"
+      :action="action"
+      :state="state"
+      :answer="answer"
+      :success="success"
+      @getExpression="getExpression"
     />
   </div>
 </template>
@@ -32,10 +41,12 @@ import Expression from '@/components/Expression.vue';
 import {
   getRndNum, getMultiple, getDivide, shuffle,
 } from '@/assets/js/functions';
+import Result from '@/components/Result.vue';
 
 export default {
   name: 'App',
   components: {
+    Result,
     Expression,
     SelectAction,
     SelectNumber,
@@ -84,6 +95,8 @@ export default {
       ],
       state: 'action',
       action: null,
+      answer: null,
+      success: false,
     };
   },
   methods: {
@@ -91,8 +104,7 @@ export default {
       this.action = action;
       this.state = 'selectNumber';
     },
-    getExpression(index) {
-      this.getFirstFactor(index);
+    getExpression() {
       this.getAnswers();
       this.getSecondFactor();
       this.getAnswerOptions();
@@ -105,6 +117,7 @@ export default {
       });
       this.numbers[index].selected = true;
       this.firstFactor = this.numbers[index].value;
+      this.getExpression();
     },
     getSecondFactor() {
       if (this.action === 'multiple') {
@@ -144,8 +157,24 @@ export default {
       }
       shuffle(this.answerOptArr);
     },
-    getAnswer(item) {
-      console.log(item);
+    sendAnswer(res) {
+      if (res === this.rightAnswer()) {
+        this.success = true;
+        this.count += 1;
+      } else {
+        this.count -= 1;
+      }
+      this.success = res === this.rightAnswer();
+      this.state = 'result';
+    },
+    rightAnswer() {
+      if (this.action === 'multiple') {
+        this.answer = getMultiple(this.firstFactor, this.secondFactor);
+      }
+      if (this.action === 'divide') {
+        this.answer = getDivide(this.secondFactor, this.firstFactor);
+      }
+      return this.answer;
     },
   },
 };

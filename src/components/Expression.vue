@@ -19,6 +19,7 @@
     </ul>
     <Btn
       :text="'Я выбрал!'"
+      @clickBtn="clickBtn"
     />
   </div>
 </template>
@@ -37,9 +38,18 @@ export default {
     state: String,
     answerOptArr: Array,
   },
+  data() {
+    return {
+      answer: null,
+    };
+  },
   methods: {
+    clickBtn() {
+      const res = this.answer;
+      this.$emit('sendAnswer', res);
+    },
     getValue(item) {
-      this.$emit('getAnswer', item);
+      this.answer = item;
     },
   },
   computed: {
