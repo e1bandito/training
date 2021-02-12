@@ -12,6 +12,12 @@
       @getNumber="getFirstFactor"
       :state="state"
     />
+    <Expression
+      :firstFactor="firstFactor"
+      :secondFactor="secondFactor"
+      :action="action"
+      :state="state"
+    />
   </div>
 </template>
 
@@ -20,10 +26,12 @@
 import Counter from '@/components/Counter.vue';
 import SelectNumber from '@/components/SelectNumber.vue';
 import SelectAction from '@/components/SelectAction.vue';
+import Expression from '@/components/Expression.vue';
 
 export default {
   name: 'App',
   components: {
+    Expression,
     SelectAction,
     SelectNumber,
     Counter,
@@ -31,7 +39,7 @@ export default {
   data() {
     return {
       firstFactor: null,
-      secondFactor: null,
+      secondFactor: 5,
       count: 0,
       numbers: [
         {

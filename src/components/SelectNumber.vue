@@ -8,7 +8,7 @@
         v-for="(item, index) in numbers"
         :key="index"
         @click="getNumber(index)"
-      >{{ item.value }} - {{ index }}</li>
+      >{{ item.value }}</li>
     </ul>
   </div>
 </template>
