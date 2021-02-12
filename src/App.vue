@@ -9,7 +9,7 @@
     />
     <SelectNumber
       :numbers="numbers"
-      @getNumber="getFirstFactor"
+      @getNumber="getExpression"
       :state="state"
     />
     <Expression
@@ -27,6 +27,9 @@ import Counter from '@/components/Counter.vue';
 import SelectNumber from '@/components/SelectNumber.vue';
 import SelectAction from '@/components/SelectAction.vue';
 import Expression from '@/components/Expression.vue';
+import {
+  getRndNum, getMultiple, getDivide, shuffle,
+} from '@/assets/js/functions';
 
 export default {
   name: 'App',
@@ -40,6 +43,8 @@ export default {
     return {
       firstFactor: null,
       secondFactor: 5,
+      answersArr: [],
+      answerOptArr: [],
       count: 0,
       numbers: [
         {
@@ -84,6 +89,13 @@ export default {
       this.action = action;
       this.state = 'selectNumber';
     },
+    getExpression(index) {
+      this.getFirstFactor(index);
+      this.getAnswers();
+      this.getSecondFactor();
+      this.getAnswerOptions();
+      this.state = 'expression';
+    },
     getFirstFactor(index) {
       this.numbers.forEach((element) => {
         // eslint-disable-next-line no-param-reassign
@@ -91,7 +103,44 @@ export default {
       });
       this.numbers[index].selected = true;
       this.firstFactor = this.numbers[index].value;
-      this.state = 'expression';
+    },
+    getSecondFactor() {
+      if (this.action === 'multiple') {
+        this.secondFactor = getRndNum(2, 9);
+      } else if (this.action === 'divide') {
+        this.secondFactor = this.answersArr[getRndNum(0, this.answersArr.length - 1)];
+      }
+    },
+    getAnswers() {
+      this.numbers.forEach((item) => {
+        const num = item.value * this.firstFactor;
+        this.answersArr.push(num);
+      });
+    },
+    getAnswerOptions() {
+      if (this.action === 'multiple') {
+        this.answerOptArr.length = 0;
+        const res = getMultiple(this.firstFactor, this.secondFactor);
+        this.answerOptArr.push(res);
+        while (this.answerOptArr.length < 4) {
+          const num = getRndNum(1, 10) * this.firstFactor;
+          if (!this.answerOptArr.includes(num)) {
+            this.answerOptArr.push(num);
+          }
+        }
+      }
+      if (this.action === 'divide') {
+        this.answerOptArr.length = 0;
+        const res = getDivide(this.secondFactor, this.firstFactor);
+        this.answerOptArr.push(res);
+        while (this.answerOptArr.length < 4) {
+          const num = getRndNum(2, 9);
+          if (!this.answerOptArr.includes(num)) {
+            this.answerOptArr.push(num);
+          }
+        }
+      }
+      shuffle(this.answerOptArr);
     },
   },
 };
