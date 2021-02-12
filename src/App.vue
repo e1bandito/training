@@ -17,6 +17,8 @@
       :secondFactor="secondFactor"
       :action="action"
       :state="state"
+      :answerOptArr="answerOptArr"
+      @getAnswer="getAnswer"
     />
   </div>
 </template>
@@ -141,6 +143,9 @@ export default {
         }
       }
       shuffle(this.answerOptArr);
+    },
+    getAnswer(item) {
+      console.log(item);
     },
   },
 };

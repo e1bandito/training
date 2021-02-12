@@ -6,7 +6,16 @@
     <p class="expression__quest">{{ secondFactor }} {{ actionValue }} {{ firstFactor }} = ?</p>
     <h3 class="expression__answer-title">Варианты ответов:</h3>
     <ul class="expression__list">
-      <li class="expression__item">lorem</li>
+      <li class="expression__item"
+        v-for="(item, index) in answerOptArr"
+        :key="index"
+      >
+        <Radio
+          :item="item"
+          :index="index"
+          @getValue="getValue"
+        />
+      </li>
     </ul>
     <Btn
       :text="'Я выбрал!'"
@@ -16,15 +25,22 @@
 
 <script>
 import Btn from '@/components/Btn.vue';
+import Radio from '@/components/Radio.vue';
 
 export default {
   name: 'Expression',
-  components: { Btn },
+  components: { Radio, Btn },
   props: {
     firstFactor: Number,
     secondFactor: Number,
     action: String,
     state: String,
+    answerOptArr: Array,
+  },
+  methods: {
+    getValue(item) {
+      this.$emit('getAnswer', item);
+    },
   },
   computed: {
     actionValue() {
