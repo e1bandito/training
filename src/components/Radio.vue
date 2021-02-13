@@ -26,6 +26,56 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+@import "src/assets/styles/variables";
 
+.radio {
+  display: flex;
+  justify-content: center;
+}
+
+.radio__label {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 25px;
+  font-size: 26px;
+  font-weight: 700;
+  color: $grey;
+  transition: color 0.3s;
+  min-width: 70px;
+
+  &::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    border: 3px solid $red;
+    margin-right: 5px;
+    position: absolute;
+    top: 4px;
+    left: 0;
+  }
+
+  &::after {
+    content: none;
+    width: 10px;
+    height: 10px;
+    background-color: $red;
+    border-radius: 100%;
+    position: absolute;
+    top: 10px;
+    left: 6px;
+  }
+
+  &:hover {
+    color: $dark-blue;
+  }
+}
+
+.radio__field:checked + .radio__label::after {
+  content: "";
+}
 </style>
