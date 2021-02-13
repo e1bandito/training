@@ -132,6 +132,7 @@ export default {
       }
     },
     getAnswers() {
+      this.answersArr.length = 0;
       this.numbers.forEach((item) => {
         const num = item.value * this.firstFactor;
         this.answersArr.push(num);
