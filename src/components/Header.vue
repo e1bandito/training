@@ -65,6 +65,28 @@ export default {
 @import "src/assets/styles/mixins";
 .header {
   padding: 10px 0;
+
+  .header__btn {
+    font-size: 16px;
+    padding: 10px 15px;
+    width: 170px;
+    min-width: auto;
+    background-color: $white;
+    color: $blue;
+    border: 2px solid $blue;
+    transition: background-color 0.3s, color 0.3s;
+    justify-self: end;
+
+    @include max(500) {
+      width: 160px;
+      padding: 7px 10px;
+    }
+
+    &:hover {
+      background-color: $blue;
+      color: $white;
+    }
+  }
 }
 .header__inner {
   display: grid;
@@ -72,23 +94,29 @@ export default {
   justify-items: center;
   align-items: center;
   gap: 15px;
+
   @include max($md) {
     grid-template-columns: 1fr 1fr;
   }
+
   @include max(500) {
     grid-template-columns: 1fr;
   }
 }
+
 .header__title {
   font-size: 40px;
   color: $dark-blue;
   margin: 0;
+
   @include max($lg) {
     font-size: 30px;
   }
+
   @include max($md) {
     order: 1;
     grid-column: 1 / 3;
   }
 }
+
 </style>
