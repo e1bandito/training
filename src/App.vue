@@ -2,6 +2,9 @@
   <div id="app">
     <Header
       :count="count"
+      :firstFactor="firstFactor"
+      :action="action"
+      :state="state"
       @changeOpt="changeOpt"
     />
     <SelectAction
