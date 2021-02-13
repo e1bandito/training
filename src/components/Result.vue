@@ -14,8 +14,10 @@
         <p class="result__exp-val">
           {{ secondFactor }} {{ actionValue }} {{ firstFactor }} = {{ answer }}
         </p>
-        <p class="result__counter-text">очков набрано:</p>
-        <Counter/>
+        <Counter
+          :count="count"
+          :countText="'Очков набрано:'"
+        />
         <Btn
           text="Дальше!"
           classes="btn--result"
@@ -40,6 +42,7 @@ export default {
     action: String,
     answer: Number,
     success: Boolean,
+    count: Number,
   },
   methods: {
     clickBtn() {

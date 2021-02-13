@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <Counter
+    <Header
       :count="count"
+      @changeOpt="changeOpt"
     />
     <SelectAction
       :state="state"
@@ -27,6 +28,7 @@
       :state="state"
       :answer="answer"
       :success="success"
+      :count="count"
       @getExpression="getExpression"
     />
   </div>
@@ -34,14 +36,14 @@
 
 <script>
 
-import Counter from '@/components/Counter.vue';
 import SelectNumber from '@/components/SelectNumber.vue';
 import SelectAction from '@/components/SelectAction.vue';
 import Expression from '@/components/Expression.vue';
+import Result from '@/components/Result.vue';
+import Header from '@/components/Header.vue';
 import {
   getRndNum, getMultiple, getDivide, shuffle,
 } from '@/assets/js/functions';
-import Result from '@/components/Result.vue';
 
 export default {
   name: 'App',
@@ -50,12 +52,12 @@ export default {
     Expression,
     SelectAction,
     SelectNumber,
-    Counter,
+    Header,
   },
   data() {
     return {
       firstFactor: null,
-      secondFactor: 5,
+      secondFactor: null,
       answersArr: [],
       answerOptArr: [],
       count: 0,
@@ -175,6 +177,12 @@ export default {
         this.answer = getDivide(this.secondFactor, this.firstFactor);
       }
       return this.answer;
+    },
+    changeOpt() {
+      this.state = 'action';
+      this.firstFactor = null;
+      this.secondFactor = null;
+      this.count = 0;
     },
   },
 };

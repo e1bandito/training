@@ -1,6 +1,6 @@
 <template>
   <div class="counter">
-    Очков: {{ count }}
+    {{ countText }} {{ count }}
   </div>
 </template>
 
@@ -9,6 +9,7 @@ export default {
   name: 'Counter',
   props: {
     count: Number,
+    countText: String,
   },
 };
 </script>
