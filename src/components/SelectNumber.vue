@@ -32,5 +32,75 @@ export default {
 </script>
 
 <style lang="scss">
+@import "src/assets/styles/variables";
+@import "src/assets/styles/mixins";
 
+.select-number {
+  padding: 30px 0;
+}
+
+.select-number__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-number__title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 1.15;
+  text-align: center;
+  color: $dark-blue;
+  margin: 0 0 75px 0;
+
+  @include max($lg) {
+    font-size: 30px;
+  }
+
+  @include max(500) {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+}
+
+.select-number__list {
+  max-width: 525px;
+  width: 100%;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(4, 1fr);
+
+  @include max(500) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.select-number__item {
+  font-weight: bold;
+  font-size: 100px;
+  line-height: 1.2;
+  text-align: center;
+  color: $red;
+  transition: background-color 0.3s, color 0.3s;
+
+  @include max(500) {
+    font-size: 60px;
+  }
+
+  &--active {
+    background-color: $dark-blue;
+    color: $white;
+  }
+
+  &:hover {
+    background-color: $dark-blue;
+    color: $white;
+    cursor: pointer;
+  }
+}
 </style>
