@@ -84,7 +84,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.expression__text {
+.expression__title {
   color: $grey;
   margin: 0 0 30px 0;
   font-size: 30px;
@@ -106,7 +106,7 @@ export default {
     margin-bottom: 20px;
   }
 }
-.expression__answers-title {
+.expression__answer-title {
   color: $grey;
   margin: 0 0 40px 0;
   font-size: 20px;

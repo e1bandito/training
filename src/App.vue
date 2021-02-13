@@ -63,6 +63,7 @@ export default {
       secondFactor: null,
       answersArr: [],
       answerOptArr: [],
+      prevFactors: [],
       count: 0,
       numbers: [
         {
@@ -126,9 +127,18 @@ export default {
     },
     getSecondFactor() {
       if (this.action === 'multiple') {
-        this.secondFactor = getRndNum(2, 9);
-      } else if (this.action === 'divide') {
+        this.secondFactor = getRndNum(1, 10);
+      }
+      if (this.action === 'divide') {
         this.secondFactor = this.answersArr[getRndNum(0, this.answersArr.length - 1)];
+      }
+      if (this.prevFactors.includes(this.secondFactor)) {
+        this.getSecondFactor();
+      } else if (this.prevFactors.length <= 5) {
+        this.prevFactors.unshift(this.secondFactor);
+      } else {
+        this.prevFactors.pop();
+        this.prevFactors.unshift(this.secondFactor);
       }
     },
     getAnswers() {
@@ -186,6 +196,7 @@ export default {
       this.state = 'action';
       this.firstFactor = null;
       this.secondFactor = null;
+      this.prevFactors.length = 0;
       this.count = 0;
     },
   },
