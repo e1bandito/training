@@ -53,7 +53,7 @@ export default {
   padding: 30px 0;
 
   & .select-action__btn {
-    font-size: 16px;
+    font-size: 18px;
     padding: 20px 25px;
     width: 220px;
     min-width: auto;
