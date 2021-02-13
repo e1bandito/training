@@ -189,8 +189,11 @@ export default {
 </script>
 
 <style lang="scss">
+@import "src/assets/styles/variables";
+@import "src/assets/styles/mixins";
+@import "src/assets/styles/scaffolding";
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -1,0 +1,17 @@
+@mixin lsr {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+@mixin max ($value) {
+  @media (max-width: $value+ "px") {
+    @content;
+  }
+}
+
+@mixin min ($value) {
+  @media (min-width: $value+ "px") {
+    @content;
+  }
+}

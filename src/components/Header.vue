@@ -1,14 +1,18 @@
 <template>
   <header class="header">
-    <Counter
-      :count="count"
-      :countText="'Очков:'"
-    />
-    <Btn
-      :text="'Изменить цифру/действие'"
-      :classes="'header__btn'"
-      @clickBtn="clickBtn"
-    />
+    <div class="container">
+      <div class="header__inner">
+        <Counter
+          :count="count"
+          :countText="'Очки:'"
+        />
+        <Btn
+          :text="'Изменить цифру/действие'"
+          :classes="'header__btn'"
+          @clickBtn="clickBtn"
+        />
+      </div>
+    </div>
   </header>
 </template>
 
