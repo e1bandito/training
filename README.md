@@ -1,24 +1,15 @@
-# traning
+# training
 
-## Project setup
+Небольшое приложение для тренировки умножения и деления. Написано для сына второклассника.
+
+## Установка
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Используемые технологии
 
-### Compiles and minifies for production
-```
-npm run build
-```
+vue.js
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### gh-pages
+[training](https://e1bandito.github.io/training/)
