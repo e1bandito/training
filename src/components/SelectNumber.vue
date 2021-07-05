@@ -1,14 +1,15 @@
 <template>
-  <div class="select-number"
-    v-if="state === 'selectNumber'"
-  >
+  <div class="select-number" v-if="state === 'selectNumber'">
     <h2 class="select-number__title">Выбери цифру, для тренировки</h2>
     <ul class="select-number__list">
-      <li class="select-number__item"
+      <li
+        class="select-number__item"
         v-for="(item, index) in numbers"
         :key="index"
         @click="getNumber(index)"
-      >{{ item.value }}</li>
+      >
+        {{ item.value }}
+      </li>
     </ul>
   </div>
 </template>
@@ -32,8 +33,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/styles/variables";
-@import "src/assets/styles/mixins";
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .select-number {
   padding: 30px 0;

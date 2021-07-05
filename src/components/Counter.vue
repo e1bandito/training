@@ -1,9 +1,11 @@
 <template>
   <div class="counter">
     {{ countText }}
-    <span class="counter__val"
+    <span
+      class="counter__val"
       :class="count > 0 ? 'counter__val--hi' : 'counter__val--low'"
-    >{{ count }}</span>
+      >{{ count }}</span
+    >
   </div>
 </template>
 
@@ -18,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/styles/variables";
+@import 'src/assets/styles/variables';
 .counter {
   font-size: 24px;
   margin: 0;

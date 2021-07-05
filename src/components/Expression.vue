@@ -1,28 +1,37 @@
 <template>
-  <section class="expression"
-    v-if="state === 'expression'"
-  >
+  <section class="expression" v-if="state === 'expression'">
     <div class="container">
       <div class="expression__inner">
         <h2 class="expression__title">Сколько получится, если..</h2>
-        <p class="expression__quest">{{ secondFactor }} {{ actionValue }} {{ firstFactor }} = ?</p>
-        <h3 class="expression__answer-title">Варианты ответов:</h3>
-        <ul class="expression__list">
-          <li class="expression__item"
+        <p class="expression__quest">
+          {{ secondFactor }} {{ actionValue }} {{ firstFactor }} = ?
+        </p>
+        <template v-if="answerType === 'list'">
+          <h3 class="expression__answer-title">Варианты ответов:</h3>
+          <ul class="expression__list">
+            <li
+              class="expression__item"
               v-for="(item, index) in answerOptArr"
               :key="index"
-          >
-            <Radio
-              :item="item"
-              :index="index"
-              @getValue="getValue"
+            >
+              <Radio :item="item" :index="index" @getValue="getValue" />
+            </li>
+          </ul>
+        </template>
+        <template v-if="answerType === 'input'">
+          <h3 class="expression__answer-title">Введите ответ:</h3>
+          <label class="expression__answer-label">
+            <input
+              class="expression__answer-field"
+              type="num"
+              v-model="answer"
             />
-          </li>
-        </ul>
-        <Btn
-          :text="'Я выбрал!'"
-          @clickBtn="clickBtn"
-        />
+            <span class="expression__answer-error-msg" v-if="!valid"
+              >error</span
+            >
+          </label>
+        </template>
+        <Btn :text="'Я выбрал!'" @clickBtn="clickBtn" />
       </div>
     </div>
   </section>
@@ -41,16 +50,19 @@ export default {
     action: String,
     state: String,
     answerOptArr: Array,
+    answerType: String,
   },
   data() {
     return {
       answer: null,
+      valid: true,
     };
   },
   methods: {
     clickBtn() {
-      const res = this.answer;
+      const res = Number(this.answer);
       this.$emit('sendAnswer', res);
+      this.answer = '';
     },
     getValue(item) {
       this.answer = item;
@@ -71,8 +83,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/styles/variables";
-@import "src/assets/styles/mixins";
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 .expression {
   padding: 30px 0;
   @include max(500) {
@@ -131,5 +143,42 @@ export default {
     gap: 20px;
     margin-bottom: 30px;
   }
+}
+
+.expression__answer-label {
+  position: relative;
+  margin-bottom: 60px;
+
+  @include max(500) {
+    margin-bottom: 40px;
+  }
+}
+
+.expression__answer-field {
+  padding: 20px;
+  font-size: 70px;
+  max-width: 160px;
+  text-align: center;
+  border: 2px solid $grey;
+  color: $dark-blue;
+  font-weight: 700;
+
+  &:focus {
+    border-color: $blue;
+    outline: none;
+  }
+
+  @include max(500) {
+    padding: 15px;
+    font-size: 50px;
+    max-width: 120px;
+  }
+}
+
+.expression__answer-error-msg {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  color: $red;
 }
 </style>

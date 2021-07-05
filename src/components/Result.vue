@@ -1,28 +1,17 @@
 <template>
-  <section class="result"
-    v-if="state === 'result'"
-  >
+  <section class="result" v-if="state === 'result'">
     <div class="container">
       <div class="result__inner">
-        <p class="result__text result__text--success"
-          v-if="success"
-        >В ТОЧКУ!</p>
-        <p class="result__text result__text--error"
-          v-else
-        >МИМО!</p>
+        <p class="result__text result__text--success" v-if="success">
+          В ТОЧКУ!
+        </p>
+        <p class="result__text result__text--error" v-else>МИМО!</p>
         <p class="result__exp-text">правильный ответ:</p>
         <p class="result__exp-val">
           {{ secondFactor }} {{ actionValue }} {{ firstFactor }} = {{ answer }}
         </p>
-        <Counter
-          :count="count"
-          :countText="'Очков набрано:'"
-        />
-        <Btn
-          text="Дальше!"
-          classes="btn--result"
-          @clickBtn="clickBtn"
-        />
+        <Counter :count="count" :countText="'Очков набрано:'" />
+        <Btn text="Дальше!" classes="btn--result" @clickBtn="clickBtn" />
       </div>
     </div>
   </section>
@@ -64,8 +53,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/styles/variables";
-@import "src/assets/styles/mixins";
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 .result {
   padding: 30px 0;
 

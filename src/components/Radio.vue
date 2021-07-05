@@ -1,12 +1,13 @@
 <template>
   <div class="radio">
-    <input type="radio"
-           name="radio-answer"
-           class="radio__field visually-hidden"
-           :id="'radio-' + index"
-           :value="item"
-           @change="getValue(item)"
-    >
+    <input
+      type="radio"
+      name="radio-answer"
+      class="radio__field visually-hidden"
+      :id="'radio-' + index"
+      :value="item"
+      @change="getValue(item)"
+    />
     <label :for="'radio-' + index" class="radio__label">{{ item }}</label>
   </div>
 </template>
@@ -27,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/styles/variables";
+@import 'src/assets/styles/variables';
 
 .radio {
   display: flex;
@@ -48,7 +49,7 @@ export default {
   min-width: 70px;
 
   &::before {
-    content: "";
+    content: '';
     width: 22px;
     height: 22px;
     border-radius: 100%;
@@ -76,6 +77,6 @@ export default {
 }
 
 .radio__field:checked + .radio__label::after {
-  content: "";
+  content: '';
 }
 </style>

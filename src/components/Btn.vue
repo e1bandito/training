@@ -1,9 +1,5 @@
 <template>
-  <button
-    class="btn"
-    :class="classes"
-    @click="clickBtn(action)"
-  >
+  <button class="btn" :class="classes" @click="clickBtn(action)">
     {{ text }}
   </button>
 </template>
@@ -34,8 +30,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/styles/variables";
-@import "src/assets/styles/mixins";
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .btn {
   appearance: none;

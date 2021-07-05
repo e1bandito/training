@@ -1,14 +1,8 @@
 <template>
-  <header
-    class="header"
-    v-if="headerVisible"
-  >
+  <header class="header" v-if="headerVisible">
     <div class="container">
       <div class="header__inner">
-        <Counter
-          :count="count"
-          :countText="'Очки:'"
-        />
+        <Counter :count="count" :countText="'Очки:'" />
         <h1 class="header__title">{{ getAction }} на {{ firstFactor }}</h1>
         <Btn
           :text="'Изменить цифру/действие'"
@@ -61,8 +55,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/styles/variables";
-@import "src/assets/styles/mixins";
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 .header {
   padding: 10px 0;
 
@@ -118,5 +112,4 @@ export default {
     grid-column: 1 / 3;
   }
 }
-
 </style>

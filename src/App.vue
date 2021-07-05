@@ -7,16 +7,15 @@
       :state="state"
       @changeOpt="changeOpt"
     />
-    <SelectAction
-      :state="state"
-      @sendAction="getAction"
-    />
+    <SelectAction :state="state" @sendAction="getAction" />
+    <SelectAnswerType :state="state" @sendAnswerType="getAnswerType" />
     <SelectNumber
       :numbers="numbers"
       :state="state"
       @getNumber="getFirstFactor"
     />
     <Expression
+      :answerType="answerType"
       :firstFactor="firstFactor"
       :secondFactor="secondFactor"
       :action="action"
@@ -38,15 +37,18 @@
 </template>
 
 <script>
-
 import SelectNumber from '@/components/SelectNumber.vue';
 import SelectAction from '@/components/SelectAction.vue';
 import Expression from '@/components/Expression.vue';
 import Result from '@/components/Result.vue';
 import Header from '@/components/Header.vue';
 import {
-  getRndNum, getMultiple, getDivide, shuffle,
+  getRndNum,
+  getMultiple,
+  getDivide,
+  shuffle,
 } from '@/assets/js/functions';
+import SelectAnswerType from './components/SelectAnswerType.vue';
 
 export default {
   name: 'App',
@@ -56,6 +58,7 @@ export default {
     SelectAction,
     SelectNumber,
     Header,
+    SelectAnswerType,
   },
   data() {
     return {
@@ -102,12 +105,17 @@ export default {
       state: 'action',
       action: null,
       answer: null,
+      answerType: null,
       success: false,
     };
   },
   methods: {
     getAction(action) {
       this.action = action;
+      this.state = 'answer';
+    },
+    getAnswerType(answerType) {
+      this.answerType = answerType;
       this.state = 'selectNumber';
     },
     getExpression() {
@@ -130,7 +138,9 @@ export default {
         this.secondFactor = getRndNum(1, 10);
       }
       if (this.action === 'divide') {
-        this.secondFactor = this.answersArr[getRndNum(0, this.answersArr.length - 1)];
+        this.secondFactor = this.answersArr[
+          getRndNum(0, this.answersArr.length - 1)
+        ];
       }
       if (this.prevFactors.includes(this.secondFactor)) {
         this.getSecondFactor();
@@ -204,9 +214,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/styles/variables";
-@import "src/assets/styles/mixins";
-@import "src/assets/styles/scaffolding";
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+@import 'src/assets/styles/scaffolding';
 
 #app {
   -webkit-font-smoothing: antialiased;

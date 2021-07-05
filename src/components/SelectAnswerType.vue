@@ -1,19 +1,19 @@
 <template>
-  <section class="select-action" v-if="state === 'action'">
+  <section class="select-action" v-if="state === 'answer'">
     <div class="container">
       <div class="select-action__inner">
-        <h2 class="select-action__title">Выбери действие для тренировки</h2>
+        <h2 class="select-action__title">Выбери формат ответа</h2>
         <Btn
           @clickBtn="clickBtn"
           :class="'select-action__btn'"
-          :action="'multiple'"
-          :text="'Умножение'"
+          :action="'list'"
+          :text="'Выбирать ответ'"
         />
         <Btn
           @clickBtn="clickBtn"
           :class="'select-action__btn'"
-          :action="'divide'"
-          :text="'Деление'"
+          :action="'input'"
+          :text="'Вводить ответ'"
         />
       </div>
     </div>
@@ -24,7 +24,7 @@
 import Btn from '@/components/Btn.vue';
 
 export default {
-  name: 'SelectAction',
+  name: 'SelectAnswerType',
   components: {
     Btn,
   },
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     clickBtn(action) {
-      this.$emit('sendAction', action);
+      this.$emit('sendAnswerType', action);
     },
   },
 };
