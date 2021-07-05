@@ -23,7 +23,7 @@
           <label class="expression__answer-label">
             <input
               class="expression__answer-field"
-              type="num"
+              type="number"
               v-model="answer"
             />
             <span class="expression__answer-error-msg" v-if="!valid"
