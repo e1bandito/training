@@ -5,6 +5,7 @@
       :firstFactor="firstFactor"
       :action="action"
       :state="state"
+      :errorsCount="errorsCount"
       @changeOpt="changeOpt"
     />
     <SelectAction :state="state" @sendAction="getAction" />
@@ -68,6 +69,7 @@ export default {
       answerOptArr: [],
       prevFactors: [],
       count: 0,
+      errorsCount: 0,
       numbers: [
         {
           value: 2,
@@ -189,6 +191,7 @@ export default {
         this.count += 1;
       } else {
         this.count -= 1;
+        this.errorsCount += 1;
       }
       this.success = res === this.rightAnswer();
       this.state = 'result';

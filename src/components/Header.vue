@@ -2,7 +2,13 @@
   <header class="header" v-if="headerVisible">
     <div class="container">
       <div class="header__inner">
-        <Counter :count="count" :countText="'Очки:'" />
+        <div class="header__wrap">
+          <Counter :count="count" :countText="'Очки:'" />
+          <span class="header__errors"
+            >Промахи:
+            <span class="header__errors-value">{{ errorsCount }}</span></span
+          >
+        </div>
         <h1 class="header__title">{{ getAction }} на {{ firstFactor }}</h1>
         <Btn
           :text="'Изменить цифру/действие'"
@@ -26,6 +32,7 @@ export default {
     action: String,
     firstFactor: Number,
     state: String,
+    errorsCount: Number,
   },
   methods: {
     clickBtn() {
@@ -96,6 +103,18 @@ export default {
   @include max(500) {
     grid-template-columns: 1fr;
   }
+}
+
+.header__wrap {
+  justify-self: start;
+}
+
+.header__errors {
+  color: $grey;
+}
+
+.header__errors-value {
+  color: $red;
 }
 
 .header__title {
