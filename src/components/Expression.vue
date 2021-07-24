@@ -25,6 +25,7 @@
               class="expression__answer-field"
               type="number"
               v-model="answer"
+              @keydown.enter="inputKeydown"
             />
             <span class="expression__answer-error-msg" v-if="!valid"
               >error</span
@@ -60,6 +61,11 @@ export default {
   },
   methods: {
     clickBtn() {
+      const res = Number(this.answer);
+      this.$emit('sendAnswer', res);
+      this.answer = '';
+    },
+    inputKeydown() {
       const res = Number(this.answer);
       this.$emit('sendAnswer', res);
       this.answer = '';
