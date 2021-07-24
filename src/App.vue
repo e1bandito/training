@@ -211,6 +211,7 @@ export default {
       this.secondFactor = null;
       this.prevFactors.length = 0;
       this.count = 0;
+      this.errorsCount = 0;
     },
   },
 };

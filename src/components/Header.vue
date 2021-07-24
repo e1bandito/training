@@ -5,7 +5,7 @@
         <div class="header__wrap">
           <Counter :count="count" :countText="'Очки:'" />
           <span class="header__errors"
-            >Промахи:
+            >Ашипки:
             <span class="header__errors-value">{{ errorsCount }}</span></span
           >
         </div>
