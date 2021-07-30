@@ -97,6 +97,7 @@ export default {
   flex-grow: 1;
   overflow: auto;
   padding: 10px;
+  min-height: 1px;
 }
 
 .modal__item {
