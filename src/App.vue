@@ -7,6 +7,7 @@
       :state="state"
       :errorsCount="errorsCount"
       @changeOpt="changeOpt"
+      @openModal="openModal"
     />
     <SelectAction :state="state" @sendAction="getAction" />
     <SelectAnswerType :state="state" @sendAnswerType="getAnswerType" />
@@ -34,6 +35,11 @@
       :count="count"
       @getExpression="getExpression"
     />
+    <ErrorModal
+      v-show="showModal"
+      :errors-array="errorsArray"
+      @closeModal="closeModal"
+    />
   </div>
 </template>
 
@@ -49,11 +55,13 @@ import {
   getDivide,
   shuffle,
 } from '@/assets/js/functions';
-import SelectAnswerType from './components/SelectAnswerType.vue';
+import SelectAnswerType from '@/components/SelectAnswerType.vue';
+import ErrorModal from '@/components/ErrorModal.vue';
 
 export default {
   name: 'App',
   components: {
+    ErrorModal,
     Result,
     Expression,
     SelectAction,
@@ -70,6 +78,7 @@ export default {
       prevFactors: [],
       count: 0,
       errorsCount: 0,
+      errorsArray: [],
       numbers: [
         {
           value: 2,
@@ -109,6 +118,7 @@ export default {
       answer: null,
       answerType: null,
       success: false,
+      showModal: false,
     };
   },
   methods: {
@@ -190,6 +200,7 @@ export default {
         this.success = true;
         this.count += 1;
       } else {
+        this.recordErrors(res);
         this.count -= 1;
         this.errorsCount += 1;
       }
@@ -212,6 +223,28 @@ export default {
       this.prevFactors.length = 0;
       this.count = 0;
       this.errorsCount = 0;
+    },
+    recordErrors(res) {
+      const errorItem = {};
+      if (this.action === 'multiple') {
+        errorItem.firstNum = this.firstFactor;
+        errorItem.secondNum = this.secondFactor;
+        errorItem.action = '*';
+        errorItem.result = res;
+      } else {
+        errorItem.firstNum = this.secondFactor;
+        errorItem.secondNum = this.firstFactor;
+        errorItem.action = '/';
+        errorItem.result = res;
+      }
+      this.errorsArray.push(errorItem);
+      console.log(this.errorsArray);
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    openModal() {
+      this.showModal = true;
     },
   },
 };

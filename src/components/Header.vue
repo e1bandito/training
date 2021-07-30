@@ -4,9 +4,9 @@
       <div class="header__inner">
         <div class="header__wrap">
           <Counter :count="count" :countText="'Очки:'" />
-          <span class="header__errors"
+          <button type="button" class="header__errors" @click="openModal"
             >Ашипки:
-            <span class="header__errors-value">{{ errorsCount }}</span></span
+            <span class="header__errors-value">{{ errorsCount }}</span></button
           >
         </div>
         <h1 class="header__title">{{ getAction }} на {{ firstFactor }}</h1>
@@ -37,6 +37,9 @@ export default {
   methods: {
     clickBtn() {
       this.$emit('changeOpt');
+    },
+    openModal() {
+      this.$emit('openModal');
     },
   },
   computed: {
@@ -110,7 +113,15 @@ export default {
 }
 
 .header__errors {
+  font-family: 'PT Sans', 'Arial', sans-serif;
+  font-size: 16px;
   color: $grey;
+  border: none;
+  background-color: transparent;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
 }
 
 .header__errors-value {
