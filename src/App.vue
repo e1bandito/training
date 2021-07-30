@@ -31,7 +31,12 @@
       :success="success"
       @getExpression="getExpression"
     />
-    <ErrorModal v-show="showModal" :errors-array="errorsArray" @closeModal="closeModal" />
+    <ErrorModal
+      v-show="showModal"
+      :showModal="showModal"
+      :errors-array="errorsArray"
+      @closeModal="closeModal"
+    />
   </div>
 </template>
 
@@ -208,7 +213,7 @@ export default {
       this.prevFactors.length = 0;
       this.count = 0;
       this.errorsCount = 0;
-      this.errorsArray = [];
+      this.errorsArray.length = 0;
     },
     recordErrors(res) {
       const errorItem = {};

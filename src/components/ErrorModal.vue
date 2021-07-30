@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" @click.self="modalOverlayClick">
+  <div class="modal" @click.self="modalOverlayClick" v-scroll-lock="showModal">
     <div class="modal__inner">
       <h2 class="modal__title" v-if="getErrors">
         Отлично, ошибок нет!
@@ -32,7 +32,8 @@
 export default {
   name: "ErrorModal",
   props: {
-    errorsArray: Array
+    errorsArray: Array,
+    showModal: Boolean
   },
   data() {
     return {
