@@ -14,21 +14,21 @@
 
 <script>
 export default {
-  name: 'Radio',
+  name: "Radio",
   props: {
     item: Number,
-    index: Number,
+    index: Number
   },
   methods: {
     getValue(item) {
-      this.$emit('getValue', item);
-    },
-  },
+      this.$emit("getValue", item);
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-@import 'src/assets/styles/variables';
+@import "src/assets/styles/variables";
 
 .radio {
   display: flex;
@@ -49,7 +49,7 @@ export default {
   min-width: 70px;
 
   &::before {
-    content: '';
+    content: "";
     width: 22px;
     height: 22px;
     border-radius: 100%;
@@ -77,6 +77,10 @@ export default {
 }
 
 .radio__field:checked + .radio__label::after {
-  content: '';
+  content: "";
+}
+
+.radio__field:focus + .radio__label {
+  outline: 1px solid $blue;
 }
 </style>

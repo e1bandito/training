@@ -1,36 +1,48 @@
 <template>
   <div id="app">
-    <Header
-      :action="action"
-      :count="count"
-      :errorsCount="errorsCount"
-      :firstFactor="firstFactor"
-      :state="state"
-      @changeOpt="changeOpt"
-      @openModal="openModal"
-    />
-    <SelectAction :state="state" @sendAction="getAction" />
-    <SelectAnswerType :state="state" @sendAnswerType="getAnswerType" />
-    <SelectNumber :numbers="numbers" :state="state" @setValue="setFirstFactorType" />
-    <Expression
-      :action="action"
-      :answerOptArr="answerOptArr"
-      :answerType="answerType"
-      :firstFactor="firstFactor"
-      :secondFactor="secondFactor"
-      :state="state"
-      @sendAnswer="sendAnswer"
-    />
-    <Result
-      :action="action"
-      :answer="answer"
-      :count="count"
-      :firstFactor="firstFactor"
-      :secondFactor="secondFactor"
-      :state="state"
-      :success="success"
-      @getExpression="getExpression"
-    />
+    <transition name="fade" appear>
+      <Header
+        :action="action"
+        :count="count"
+        :errorsCount="errorsCount"
+        :firstFactor="firstFactor"
+        :state="state"
+        @changeOpt="changeOpt"
+        @openModal="openModal"
+      />
+    </transition>
+    <transition name="fade" appear>
+      <SelectAction :state="state" @sendAction="getAction" />
+    </transition>
+    <transition name="fade" appear>
+      <SelectAnswerType :state="state" @sendAnswerType="getAnswerType" />
+    </transition>
+    <transition name="fade" appear>
+      <SelectNumber :numbers="numbers" :state="state" @setValue="setFirstFactorType" />
+    </transition>
+    <transition name="fade" appear>
+      <Expression
+        :action="action"
+        :answerOptArr="answerOptArr"
+        :answerType="answerType"
+        :firstFactor="firstFactor"
+        :secondFactor="secondFactor"
+        :state="state"
+        @sendAnswer="sendAnswer"
+      />
+    </transition>
+    <transition name="fade" appear>
+      <Result
+        :action="action"
+        :answer="answer"
+        :count="count"
+        :firstFactor="firstFactor"
+        :secondFactor="secondFactor"
+        :state="state"
+        :success="success"
+        @getExpression="getExpression"
+      />
+    </transition>
     <ErrorModal
       v-show="showModal"
       :showModal="showModal"
@@ -253,5 +265,15 @@ export default {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s linear;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

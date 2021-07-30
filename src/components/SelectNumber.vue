@@ -3,9 +3,11 @@
     <h2 class="select-number__title">Выбери цифру, для тренировки</h2>
     <ul class="select-number__list">
       <li
+        tabindex="0"
         class="select-number__item"
         v-for="(item, index) in numbers"
         :key="index"
+        @keydown.enter="setNum($event)"
         @click="setNum($event)"
       >
         {{ item.value }}
