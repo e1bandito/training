@@ -4,52 +4,47 @@
       <div class="header__inner">
         <div class="header__wrap">
           <Counter :count="count" :countText="'Очки:'" />
-          <button type="button" class="header__errors" @click="openModal"
-            >Ашипки:
-            <span class="header__errors-value">{{ errorsCount }}</span></button
-          >
+          <button type="button" class="header__errors" @click="openModal">
+            Ашипки: <span class="header__errors-value">{{ errorsCount }}</span>
+          </button>
         </div>
         <h1 class="header__title">{{ getAction }} на {{ firstFactor }}</h1>
-        <Btn
-          :text="'Изменить цифру/действие'"
-          :classes="'header__btn'"
-          @clickBtn="clickBtn"
-        />
+        <Btn :text="'Изменить цифру/действие'" :classes="'header__btn'" @clickBtn="clickBtn" />
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import Counter from '@/components/Counter.vue';
-import Btn from '@/components/Btn.vue';
+import Counter from "@/components/Counter.vue";
+import Btn from "@/components/Btn.vue";
 
 export default {
-  name: 'Header',
+  name: "Header",
   components: { Btn, Counter },
   props: {
     count: Number,
     action: String,
     firstFactor: Number,
     state: String,
-    errorsCount: Number,
+    errorsCount: Number
   },
   methods: {
     clickBtn() {
-      this.$emit('changeOpt');
+      this.$emit("changeOpt");
     },
     openModal() {
-      this.$emit('openModal');
-    },
+      this.$emit("openModal");
+    }
   },
   computed: {
     getAction() {
       let actionValue;
-      if (this.action === 'multiple') {
-        actionValue = 'Умножаем';
+      if (this.action === "multiple") {
+        actionValue = "Умножаем";
       }
-      if (this.action === 'divide') {
-        actionValue = 'Делим';
+      if (this.action === "divide") {
+        actionValue = "Делим";
       }
       return actionValue;
     },
@@ -59,14 +54,14 @@ export default {
         headerVisible = true;
       }
       return headerVisible;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-@import 'src/assets/styles/variables';
-@import 'src/assets/styles/mixins';
+@import "src/assets/styles/variables";
+@import "src/assets/styles/mixins";
 .header {
   padding: 10px 0;
 
@@ -113,7 +108,7 @@ export default {
 }
 
 .header__errors {
-  font-family: 'PT Sans', 'Arial', sans-serif;
+  font-family: "PT Sans", "Arial", sans-serif;
   font-size: 16px;
   color: $grey;
   border: none;

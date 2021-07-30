@@ -1,65 +1,52 @@
 <template>
   <div id="app">
     <Header
-      :count="count"
-      :firstFactor="firstFactor"
       :action="action"
-      :state="state"
+      :count="count"
       :errorsCount="errorsCount"
+      :firstFactor="firstFactor"
+      :state="state"
       @changeOpt="changeOpt"
       @openModal="openModal"
     />
     <SelectAction :state="state" @sendAction="getAction" />
     <SelectAnswerType :state="state" @sendAnswerType="getAnswerType" />
-    <SelectNumber
-      :numbers="numbers"
-      :state="state"
-      @getNumber="getFirstFactor"
-    />
+    <SelectNumber :numbers="numbers" :state="state" @getNumber="getFirstFactor" />
     <Expression
+      :action="action"
+      :answerOptArr="answerOptArr"
       :answerType="answerType"
       :firstFactor="firstFactor"
       :secondFactor="secondFactor"
-      :action="action"
       :state="state"
-      :answerOptArr="answerOptArr"
       @sendAnswer="sendAnswer"
     />
     <Result
+      :action="action"
+      :answer="answer"
+      :count="count"
       :firstFactor="firstFactor"
       :secondFactor="secondFactor"
-      :action="action"
       :state="state"
-      :answer="answer"
       :success="success"
-      :count="count"
       @getExpression="getExpression"
     />
-    <ErrorModal
-      v-show="showModal"
-      :errors-array="errorsArray"
-      @closeModal="closeModal"
-    />
+    <ErrorModal v-show="showModal" :errors-array="errorsArray" @closeModal="closeModal" />
   </div>
 </template>
 
 <script>
-import SelectNumber from '@/components/SelectNumber.vue';
-import SelectAction from '@/components/SelectAction.vue';
-import Expression from '@/components/Expression.vue';
-import Result from '@/components/Result.vue';
-import Header from '@/components/Header.vue';
-import {
-  getRndNum,
-  getMultiple,
-  getDivide,
-  shuffle,
-} from '@/assets/js/functions';
-import SelectAnswerType from '@/components/SelectAnswerType.vue';
-import ErrorModal from '@/components/ErrorModal.vue';
+import SelectNumber from "@/components/SelectNumber.vue";
+import SelectAction from "@/components/SelectAction.vue";
+import Expression from "@/components/Expression.vue";
+import Result from "@/components/Result.vue";
+import Header from "@/components/Header.vue";
+import { getRndNum, getMultiple, getDivide, shuffle } from "@/assets/js/functions";
+import SelectAnswerType from "@/components/SelectAnswerType.vue";
+import ErrorModal from "@/components/ErrorModal.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     ErrorModal,
     Result,
@@ -67,7 +54,7 @@ export default {
     SelectAction,
     SelectNumber,
     Header,
-    SelectAnswerType,
+    SelectAnswerType
   },
   data() {
     return {
@@ -82,62 +69,62 @@ export default {
       numbers: [
         {
           value: 2,
-          selected: false,
+          selected: false
         },
         {
           value: 3,
-          selected: false,
+          selected: false
         },
         {
           value: 4,
-          selected: false,
+          selected: false
         },
         {
           value: 5,
-          selected: false,
+          selected: false
         },
         {
           value: 6,
-          selected: false,
+          selected: false
         },
         {
           value: 7,
-          selected: false,
+          selected: false
         },
         {
           value: 8,
-          selected: false,
+          selected: false
         },
         {
           value: 9,
-          selected: false,
-        },
+          selected: false
+        }
       ],
-      state: 'action',
+      state: "action",
       action: null,
       answer: null,
       answerType: null,
       success: false,
-      showModal: false,
+      showModal: false
     };
   },
   methods: {
     getAction(action) {
       this.action = action;
-      this.state = 'answer';
+      this.state = "answer";
     },
     getAnswerType(answerType) {
       this.answerType = answerType;
-      this.state = 'selectNumber';
+      this.state = "selectNumber";
     },
     getExpression() {
       this.getAnswers();
       this.getSecondFactor();
       this.getAnswerOptions();
-      this.state = 'expression';
+      this.state = "expression";
     },
     getFirstFactor(index) {
-      this.numbers.forEach((element) => {
+      this.numbers.forEach(element => {
         // eslint-disable-next-line no-param-reassign
         element.selected = false;
       });
@@ -146,13 +133,11 @@ export default {
       this.getExpression();
     },
     getSecondFactor() {
-      if (this.action === 'multiple') {
+      if (this.action === "multiple") {
         this.secondFactor = getRndNum(1, 10);
       }
-      if (this.action === 'divide') {
-        this.secondFactor = this.answersArr[
-          getRndNum(0, this.answersArr.length - 1)
-        ];
+      if (this.action === "divide") {
+        this.secondFactor = this.answersArr[getRndNum(0, this.answersArr.length - 1)];
       }
       if (this.prevFactors.includes(this.secondFactor)) {
         this.getSecondFactor();
@@ -165,13 +150,13 @@ export default {
     },
     getAnswers() {
       this.answersArr.length = 0;
-      this.numbers.forEach((item) => {
+      this.numbers.forEach(item => {
         const num = item.value * this.firstFactor;
         this.answersArr.push(num);
       });
     },
     getAnswerOptions() {
-      if (this.action === 'multiple') {
+      if (this.action === "multiple") {
         this.answerOptArr.length = 0;
         const res = getMultiple(this.firstFactor, this.secondFactor);
         this.answerOptArr.push(res);
@@ -182,7 +167,7 @@ export default {
           }
         }
       }
-      if (this.action === 'divide') {
+      if (this.action === "divide") {
         this.answerOptArr.length = 0;
         const res = getDivide(this.secondFactor, this.firstFactor);
         this.answerOptArr.push(res);
@@ -205,55 +190,55 @@ export default {
         this.errorsCount += 1;
       }
       this.success = res === this.rightAnswer();
-      this.state = 'result';
+      this.state = "result";
     },
     rightAnswer() {
-      if (this.action === 'multiple') {
+      if (this.action === "multiple") {
         this.answer = getMultiple(this.firstFactor, this.secondFactor);
       }
-      if (this.action === 'divide') {
+      if (this.action === "divide") {
         this.answer = getDivide(this.secondFactor, this.firstFactor);
       }
       return this.answer;
     },
     changeOpt() {
-      this.state = 'action';
+      this.state = "action";
       this.firstFactor = null;
       this.secondFactor = null;
       this.prevFactors.length = 0;
       this.count = 0;
       this.errorsCount = 0;
+      this.errorsArray = [];
     },
     recordErrors(res) {
       const errorItem = {};
-      if (this.action === 'multiple') {
+      if (this.action === "multiple") {
         errorItem.firstNum = this.firstFactor;
         errorItem.secondNum = this.secondFactor;
-        errorItem.action = '*';
+        errorItem.action = "*";
         errorItem.result = res;
       } else {
         errorItem.firstNum = this.secondFactor;
         errorItem.secondNum = this.firstFactor;
-        errorItem.action = '/';
+        errorItem.action = "/";
         errorItem.result = res;
       }
       this.errorsArray.push(errorItem);
-      console.log(this.errorsArray);
     },
     closeModal() {
       this.showModal = false;
     },
     openModal() {
       this.showModal = true;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-@import 'src/assets/styles/variables';
-@import 'src/assets/styles/mixins';
-@import 'src/assets/styles/scaffolding';
+@import "src/assets/styles/variables";
+@import "src/assets/styles/mixins";
+@import "src/assets/styles/scaffolding";
 
 #app {
   -webkit-font-smoothing: antialiased;
