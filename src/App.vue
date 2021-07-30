@@ -11,7 +11,7 @@
     />
     <SelectAction :state="state" @sendAction="getAction" />
     <SelectAnswerType :state="state" @sendAnswerType="getAnswerType" />
-    <SelectNumber :numbers="numbers" :state="state" @getNumber="getFirstFactor" />
+    <SelectNumber :numbers="numbers" :state="state" @setValue="setFirstFactorType" />
     <Expression
       :action="action"
       :answerOptArr="answerOptArr"
@@ -64,6 +64,7 @@ export default {
   data() {
     return {
       firstFactor: null,
+      firstFactorType: "random",
       secondFactor: null,
       answersArr: [],
       answerOptArr: [],
@@ -123,23 +124,27 @@ export default {
       this.state = "selectNumber";
     },
     getExpression() {
+      this.getFirstFactor();
       this.getAnswers();
       this.getSecondFactor();
       this.getAnswerOptions();
       this.state = "expression";
     },
-    getFirstFactor(index) {
-      this.numbers.forEach(element => {
-        // eslint-disable-next-line no-param-reassign
-        element.selected = false;
-      });
-      this.numbers[index].selected = true;
-      this.firstFactor = this.numbers[index].value;
+    setFirstFactorType(val) {
+      this.firstFactorType = val;
+      this.getFirstFactor();
       this.getExpression();
+    },
+    getFirstFactor() {
+      if (this.firstFactorType === "random") {
+        this.firstFactor = getRndNum(2, 9);
+      } else {
+        this.firstFactor = +this.firstFactorType;
+      }
     },
     getSecondFactor() {
       if (this.action === "multiple") {
-        this.secondFactor = getRndNum(1, 10);
+        this.secondFactor = getRndNum(2, 9);
       }
       if (this.action === "divide") {
         this.secondFactor = this.answersArr[getRndNum(0, this.answersArr.length - 1)];
@@ -213,13 +218,13 @@ export default {
       this.prevFactors.length = 0;
       this.count = 0;
       this.errorsCount = 0;
-      this.errorsArray.length = 0;
+      this.errorsArray = [];
     },
     recordErrors(res) {
       const errorItem = {};
       if (this.action === "multiple") {
-        errorItem.firstNum = this.firstFactor;
-        errorItem.secondNum = this.secondFactor;
+        errorItem.firstNum = this.secondFactor;
+        errorItem.secondNum = this.firstFactor;
         errorItem.action = "*";
         errorItem.result = res;
       } else {

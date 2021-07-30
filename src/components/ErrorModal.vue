@@ -1,11 +1,11 @@
 <template>
   <div class="modal" @click.self="modalOverlayClick" v-scroll-lock="showModal">
     <div class="modal__inner">
-      <h2 class="modal__title" v-if="getErrors">
+      <h2 class="modal__title" v-if="!getErrors">
         Отлично, ошибок нет!
       </h2>
-      <h2 class="modal__title" v-if="!getErrors">Примеры с ошибками:</h2>
-      <ul class="modal__list" v-if="!getErrors">
+      <h2 class="modal__title" v-if="getErrors">Примеры с ошибками:</h2>
+      <ul class="modal__list" v-if="getErrors">
         <li class="modal__item" v-for="(item, idx) in errorsArray" :key="idx">
           {{ item.firstNum }} {{ item.action }} {{ item.secondNum }} =
           <span class="modal__item-res"> {{ item.result }}</span>
@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     getErrors() {
-      return !(this.errorsArray.length > 0);
+      return this.errorsArray.length > 0;
     }
   }
 };

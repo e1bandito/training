@@ -6,38 +6,50 @@
         class="select-number__item"
         v-for="(item, index) in numbers"
         :key="index"
-        @click="getNumber(index)"
+        @click="setNum($event)"
       >
         {{ item.value }}
       </li>
     </ul>
+    <button class="btn" type="button" @click="setRnd()">Случайная цифра</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SelectNumber',
+  name: "SelectNumber",
   props: {
     numbers: Array,
     state: {
       type: String,
-      default: 'default',
-    },
+      default: "default"
+    }
+  },
+  data() {
+    return {
+      value: null
+    };
   },
   methods: {
-    getNumber(index) {
-      this.$emit('getNumber', index);
+    setNum(e) {
+      this.$emit("setValue", +e.target.innerText);
     },
-  },
+    setRnd() {
+      this.$emit("setValue", "random");
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-@import 'src/assets/styles/variables';
-@import 'src/assets/styles/mixins';
+@import "src/assets/styles/variables";
+@import "src/assets/styles/mixins";
 
 .select-number {
   padding: 30px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .select-number__inner {
@@ -68,7 +80,7 @@ export default {
 .select-number__list {
   max-width: 525px;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   list-style: none;
   padding: 0;
   display: grid;
